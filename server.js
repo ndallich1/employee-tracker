@@ -2,6 +2,10 @@
 const inquirer = require("inquirer");
 // import and require mysql2
 const mysql = require("mysql2");
+const prompts = require("./lib/prompts");
+const Engineer = require("./lib/department");
+const Intern = require("./lib/employee");
+const Manager = require("./lib/role");
 
 const PORT = process.env.PORT || 3001;
 const app = express();
