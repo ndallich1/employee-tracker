@@ -6,8 +6,8 @@ CREATE DATABASE employee_db;
 -- Use employee_db 
 USE employee_db;
 
--- -- See database in use 
--- SELECT DATABASE();
+-- See database in use 
+SELECT DATABASE();
 
 CREATE TABLE department (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,    
@@ -30,13 +30,10 @@ CREATE TABLE employee (
   last_name VARCHAR(30) NOT NULL,
   role_id INT,
     FOREIGN KEY (role_id)
-    REFERENCES role(id)
-    ON DELETE SET NULL,
+    REFERENCES role(id) -- references the id row in the role table 
+    ON DELETE SET NULL, -- removes the role id from the employee_id row if the id is removed from the "role" table
   manager_id INT,
     FOREIGN KEY (manager_id)
     REFERENCES employee(id)
     ON DELETE SET NULL
 );
-
--- INSERT INTO employees (id, name)
--- VALUES 
