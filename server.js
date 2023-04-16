@@ -2,7 +2,7 @@
 const inquirer = require("inquirer");
 // import and require mysql2
 const mysql = require("mysql2");
-const { menu, addDepartment } = require("./lib/prompts");
+const prompts = require("./lib/prompts");
 const Engineer = require("./lib/department");
 const Intern = require("./lib/employee");
 const Manager = require("./lib/role");
@@ -21,14 +21,14 @@ const db = mysql.createConnection(
 );
 
 const initialQuestion = () => {
-  inquirer.prompt(menu).then((answers) => {
-    chosenTask(answers);
+  inquirer.prompt(prompts.menu).then((answers) => {
+    chosenTask(answers.menu);
   });
 };
 
 initialQuestion();
 
-const chosenTask = ({ options }) => {
+const chosenTask = (options) => {
   switch (options) {
     case "View all departments":
       viewDepartments();
@@ -54,6 +54,8 @@ const chosenTask = ({ options }) => {
     case "Quit":
       quit();
       break;
+    default:
+      console.log("'" + options + "' is not valid");
   }
 };
 
@@ -71,8 +73,8 @@ const chosenTask = ({ options }) => {
 //   )
 // };
 
-function addDepartment() {
-  inquirer.prompt(addDepartment).then((answers) => {
+const addDepartment = () => {
+  inquirer.prompt(prompts.addDepartment).then((answers) => {
     db.query(
       `INSERT INTO department (name)
       VALUES (?)`,
@@ -84,4 +86,22 @@ function addDepartment() {
     }
     console.table(results);
   });
-}
+};
+
+// WHEN I choose to view all roles
+// THEN I am presented with the job title, role id, the department that role belongs to, and the salary for that role
+
+const viewRoles = () => {
+  inquirer.prompt(prompts.X).then((answers) => {
+    db.query(
+      `INSERT INTO department (name)
+      VALUES (?)`,
+      [answers.deptName],
+      console.log("Added new department")
+    );
+    if (err) {
+      console.log(err);
+    }
+    console.table(results);
+  });
+};
